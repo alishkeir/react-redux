@@ -1,14 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'aos/dist/aos.css';
 
-ReactDOM.render(
+import { Provider } from 'react-redux';
+import { store } from './state/store';
+
+//? React 18...
+const Root = createRoot(document.getElementById('root'));
+
+Root.render(
     <React.Fragment>
-        <App />
-    </React.Fragment>,
-    document.getElementById('root')
+        {/* We should wrap the part we want to use redux in with a provider to access the store  */}
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.Fragment>
 );
 
 reportWebVitals();

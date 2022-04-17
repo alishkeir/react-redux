@@ -1,23 +1,36 @@
-import Header from './components/header/Header';
-import {
-    BrowserRouter as Router,
-    Redirect,
-    Route,
-    Routes,
-} from 'react-router-dom';
-
-import './assets/js/script';
-import './assets/scss/style.scss';
-import Home from './pages/home/Home';
+import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from './state';
 
 function App() {
+    const account = useSelector((state) => state.account);
+
+    const dispatch = useDispatch();
+
+    const { depositMoney, withdrawMoney } = bindActionCreators(
+        actionCreators,
+        dispatch
+    );
+
     return (
-        <Router>
-            <Header />
-            <Routes>
-                <Route exact={true} path='/' element={<Home />} />
-            </Routes>
-        </Router>
+        <div className='App'>
+            <h1>{account}</h1>
+            <button
+                onClick={() => {
+                    depositMoney(1000);
+                }}
+            >
+                Deposit
+            </button>
+            <button
+                onClick={() => {
+                    withdrawMoney(1000);
+                }}
+            >
+                Withdraw
+            </button>
+        </div>
     );
 }
 
